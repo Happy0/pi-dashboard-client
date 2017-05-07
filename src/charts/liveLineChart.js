@@ -22,18 +22,16 @@ class LiveLineChart {
       title: {
         text: this.title
       },
-      axisX:{
-      valueFormatString: "hh:mm:ss TT" ,
-      labelAngle: -50
-    },
+      axisX: {
+        valueFormatString: "hh:mm:ss TT",
+        labelAngle: -50
+      },
 
-      data: [
-        {
-          type: "line",
-          xValueType: "dateTime",
-          dataPoints: this.data;
-        }
-      ]
+      data: [{
+        type: "line",
+        xValueType: "dateTime",
+        dataPoints: this.data
+      }]
     });
 
     subscribeToChanges(chart);
