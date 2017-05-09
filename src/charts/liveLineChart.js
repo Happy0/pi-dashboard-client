@@ -17,7 +17,7 @@ class LiveLineChart {
     this.units = units;
   }
 
-  function create(domElement) {
+  create(domElement) {
     var chart = new CanvasJS.Chart(domElement, {
       title: {
         text: this.title
@@ -37,7 +37,7 @@ class LiveLineChart {
     subscribeToChanges(chart);
   }
 
-  function updateChart(chart, dataPoint) {
+  updateChart(chart, dataPoint) {
     const dPoint = giveDatapointDisplayTime(dataPoint);
 
     this.data.push(dPoint);
@@ -47,7 +47,7 @@ class LiveLineChart {
     }
   }
 
-  function subscribeToChanges(chart) {
+  subscribeToChanges(chart) {
     PubSub.subscribe(topic, (msg, data) => updateChart(chart, data));
   }
 }
