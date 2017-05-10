@@ -1,7 +1,7 @@
 var React = require('react');
 var PubSub = require('pubsub-js');
 
-import CanvasJS from 'canvasjs';
+var CanvasJS = require('canvasjs');
 
 var dataLength = 500;
 

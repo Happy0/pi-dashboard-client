@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-import LiveLineChart from "./charts/liveLineChart";
+var LiveLineChart = require("./charts/liveLineChart");
 
 var testData = [
   {x: 1494457845, y: 22},
@@ -19,7 +18,7 @@ class App extends Component {
 
     return (
       <div class="temperature">
-        <LiveLineChart topic={topicArooni} data={testData} title={titleText} />
+        <LiveLineChart topic={topicName} data={testData} title={titleText} />
       </div>
     )
   }
