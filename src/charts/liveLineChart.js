@@ -1,23 +1,20 @@
 var React = require('react');
-var CanvasJS = require('canvasjs');
 var PubSub = require('pubsub-js');
 
 import CanvasJS from 'canvasjs';
 
-class LiveLineChart extends Component {
+var dataLength = 500;
 
-  var dataLength = 500;
+class LiveLineChart extends React.Component {
 
-  constructor(topicName, title, xLabel, yLabel, initialData, units) {
-    this.topicName = topicName;
-    this.title = title;
-    this.xLabel = xLabel;
-    this.yLabel = yLavel;
-    this.data = initialData;
-    this.units = units;
+  render() {
+    var chartContainer = document.createElement("div");
+    this.createChartIn(chartContainer);
+
+    return <div ref={(nodeElement) => {nodeElement.appendChild(chartContainer)}}/>
   }
 
-  create(domElement) {
+  createChartIn(domElement) {
     var chart = new CanvasJS.Chart(domElement, {
       title: {
         text: this.title
@@ -34,21 +31,20 @@ class LiveLineChart extends Component {
       }]
     });
 
-    subscribeToChanges(chart);
+    this.subscribeToChanges(chart);
   }
 
-  function updateChart(chart, dataPoint) {
-    const dPoint = giveDatapointDisplayTime(dataPoint);
+  updateChart(chart, dataPoint) {
 
-    this.data.push(dPoint);
+    this.data.push(dataPoint);
 
     if (this.data.length > dataLength) {
-      this.data.shift();siliconvalleytv/
+      this.data.shift();
     }
   }
 
-  function subscribeToChanges(chart) {
-    PubSub.subscribe(topic, (msg, data) => updateChart(chart, data));
+  subscribeToChanges(chart) {
+    PubSub.subscribe(this.topic, (msg, data) => this.updateChart(chart, data));
   }
 }
 
