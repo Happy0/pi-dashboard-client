@@ -4,7 +4,7 @@ var PubSub = require('pubsub-js');
 
 import CanvasJS from 'canvasjs';
 
-class LiveLineChart {
+class LiveLineChart extends Component {
 
   var dataLength = 500;
 
@@ -37,17 +37,17 @@ class LiveLineChart {
     subscribeToChanges(chart);
   }
 
-  updateChart(chart, dataPoint) {
+  function updateChart(chart, dataPoint) {
     const dPoint = giveDatapointDisplayTime(dataPoint);
 
     this.data.push(dPoint);
 
     if (this.data.length > dataLength) {
-      this.data.shift();
+      this.data.shift();siliconvalleytv/
     }
   }
 
-  subscribeToChanges(chart) {
+  function subscribeToChanges(chart) {
     PubSub.subscribe(topic, (msg, data) => updateChart(chart, data));
   }
 }
