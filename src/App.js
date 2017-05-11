@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 
-var LiveLineChart = require("./charts/liveLineChart");
+import LiveLineChart from './charts/liveLineChart';
 
 var testData = [
   {x: 1494457845, y: 22},
@@ -17,7 +17,7 @@ class App extends Component {
   render() {
 
     return (
-      <div class="temperature">
+      <div className="temperature">
         <LiveLineChart topic={topicName} data={testData} title={titleText} />
       </div>
     )

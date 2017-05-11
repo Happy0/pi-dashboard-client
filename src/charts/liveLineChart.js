@@ -1,7 +1,7 @@
 var React = require('react');
 var PubSub = require('pubsub-js');
 
-var CanvasJS = require('canvasjs');
+var HighCharts = require('highcharts');
 
 var dataLength = 500;
 
@@ -15,23 +15,25 @@ class LiveLineChart extends React.Component {
   }
 
   createChartIn(domElement) {
-    var chart = new CanvasJS.Chart(domElement, {
+    var chart = HighCharts.chart(domElement, {
+      chart: {
+        type: 'spline'
+      },
       title: {
         text: this.title
       },
-      axisX: {
-        valueFormatString: "hh:mm:ss TT",
-        labelAngle: -50
+      xAxis: {
+        type: 'datetime'
       },
-
-      data: [{
-        type: "line",
-        xValueType: "dateTime",
-        dataPoints: this.data
-      }]
+      series: [
+        {
+          'name': 'blah',
+          'data': this.data
+        }
+      ]
     });
 
-    this.subscribeToChanges(chart);
+   this.subscribeToChanges(chart);
   }
 
   updateChart(chart, dataPoint) {
