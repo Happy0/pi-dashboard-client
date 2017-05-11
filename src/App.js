@@ -4,13 +4,14 @@ import './App.css';
 import LiveLineChart from './charts/liveLineChart';
 
 var testData = [
-  {x: 1494457845, y: 22},
-  {x: 1494497845, y: 33}
+  [1494457845, 22]
 ];
 
-var titleText = "stuff and things";
+var titleText = "CPU Temperature";
+var xLabel = "Time";
+var yLabel = "Temperature";
 
-var topicName = "topicarooni";
+var topicName = "cpu_temperature";
 
 class App extends Component {
 
@@ -18,7 +19,7 @@ class App extends Component {
 
     return (
       <div className="temperature">
-        <LiveLineChart topic={topicName} data={testData} title={titleText} />
+        <LiveLineChart xLabel={xLabel} yLabel={yLabel} topic={topicName} data={testData} title={titleText} />
       </div>
     )
   }

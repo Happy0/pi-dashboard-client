@@ -11,6 +11,8 @@ class LiveLineChart extends React.Component {
     var chartContainer = document.createElement("div");
     this.createChartIn(chartContainer);
 
+    console.dir(this.props.data);
+
     return <div ref={(nodeElement) => {nodeElement.appendChild(chartContainer)}}/>
   }
 
@@ -20,15 +22,22 @@ class LiveLineChart extends React.Component {
         type: 'spline'
       },
       title: {
-        text: this.title
+        text: this.props.title
       },
       xAxis: {
-        type: 'datetime'
+        type: 'datetime',
+        text: this.props.xLabel
+      },
+      yAxis: {
+        type: 'celcius',
+        title: {
+          text: this.props.yLabel
+        }
       },
       series: [
         {
-          'name': 'blah',
-          'data': this.data
+          'name': 'Time',
+          'data': this.props.data
         }
       ]
     });
@@ -46,7 +55,7 @@ class LiveLineChart extends React.Component {
   }
 
   subscribeToChanges(chart) {
-    PubSub.subscribe(this.topic, (msg, data) => this.updateChart(chart, data));
+    PubSub.subscribe(this.props.topic, (msg, data) => this.updateChart(chart, data));
   }
 }
 
