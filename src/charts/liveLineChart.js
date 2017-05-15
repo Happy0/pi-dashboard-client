@@ -20,7 +20,9 @@ class LiveLineChart extends React.Component {
     var endpoint = this.props.endpoint;
     if (endpoint) {
       var requestUrl = config.baseRestUri + endpoint;
-      fetch(requestUrl).then(result => this.setState({data: result}));
+      fetch(requestUrl).then(result =>
+        result.json().then(json =>
+          this.setState({data: json})));
     }
   }
 
@@ -32,6 +34,8 @@ class LiveLineChart extends React.Component {
   }
 
   createChartIn(domElement) {
+    console.dir(this.state.data);
+
     var chart = HighCharts.chart(domElement, {
       chart: {
         type: 'spline'
