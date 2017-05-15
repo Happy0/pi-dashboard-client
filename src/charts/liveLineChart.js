@@ -11,9 +11,8 @@ class LiveLineChart extends React.Component {
 
   constructor (props) {
     super(props);
-    this.state = {
-      data: props.data
-    }
+
+    this.data = this.props.data;
   }
 
   componentDidMount() {
@@ -21,8 +20,7 @@ class LiveLineChart extends React.Component {
     if (endpoint) {
       var requestUrl = config.baseRestUri + endpoint;
       fetch(requestUrl).then(result =>
-        result.json().then(json =>
-          this.setState({data: json})));
+        result.json().then(json => json.forEach(this.updateChart)));
     }
   }
 
@@ -34,7 +32,6 @@ class LiveLineChart extends React.Component {
   }
 
   createChartIn(domElement) {
-    console.dir(this.state.data);
 
     var chart = HighCharts.chart(domElement, {
       chart: {
@@ -56,7 +53,7 @@ class LiveLineChart extends React.Component {
       series: [
         {
           'name': 'Time',
-          'data': this.state.data
+          'data': this.data
         }
       ]
     });
