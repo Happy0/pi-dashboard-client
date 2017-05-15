@@ -5,8 +5,6 @@ var HighCharts = require('highcharts');
 
 var config = require("../../config.json");
 
-var dataLength = 500;
-
 class LiveLineChart extends React.Component {
 
   constructor (props) {
@@ -15,12 +13,11 @@ class LiveLineChart extends React.Component {
     this.data = this.props.data;
   }
 
-  componentDidMount() {
+  getLatestData() {
     var endpoint = this.props.endpoint;
     if (endpoint) {
       var requestUrl = config.baseRestUri + endpoint;
-      fetch(requestUrl).then(result =>
-        result.json().then(json => json.forEach(this.updateChart)));
+      return fetch(requestUrl).then(result => result.json())
     }
   }
 
@@ -33,9 +30,21 @@ class LiveLineChart extends React.Component {
 
   createChartIn(domElement) {
 
-    var chart = HighCharts.chart(domElement, {
+    var _self = this;
+
+    this.chart = HighCharts.chart(domElement, {
       chart: {
-        type: 'spline'
+        type: 'spline',
+        animation: HighCharts.svg,
+        events: {
+          load: function() {
+            var series = this.series[0];
+            var updateSeries = _self.updateChart.bind(null, series);
+
+            _self.getLatestData().then(data => data.forEach(updateSeries))
+              .then(_self.keepChartUpdated(series))
+          }
+        }
       },
       title: {
         text: this.props.title
@@ -58,21 +67,16 @@ class LiveLineChart extends React.Component {
       ]
     });
 
-   this.subscribeToChanges(chart);
   }
 
-  updateChart(chart, dataPoint) {
-
-    this.data.push(dataPoint);
-
-    if (this.data.length > dataLength) {
-      this.data.shift();
-    }
+  keepChartUpdated(series) {
+    PubSub.subscribe(this.props.topic, (msg, data) => this.updateChart(series, data));
   }
 
-  subscribeToChanges(chart) {
-    PubSub.subscribe(this.props.topic, (msg, data) => this.updateChart(chart, data));
+  updateChart(series, dataPoint) {
+    series.addPoint(dataPoint, true, true);
   }
+
 }
 
 export default LiveLineChart;
