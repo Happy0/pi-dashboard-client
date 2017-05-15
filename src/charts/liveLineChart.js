@@ -3,15 +3,30 @@ var PubSub = require('pubsub-js');
 
 var HighCharts = require('highcharts');
 
+var config = require("../../config.json");
+
 var dataLength = 500;
 
 class LiveLineChart extends React.Component {
 
+  constructor (props) {
+    super(props);
+    this.state = {
+      data: props.data
+    }
+  }
+
+  componentDidMount() {
+    var endpoint = this.props.endpoint;
+    if (endpoint) {
+      var requestUrl = config.baseRestUri + endpoint;
+      fetch(requestUrl).then(result => this.setState({data: result}));
+    }
+  }
+
   render() {
     var chartContainer = document.createElement("div");
     this.createChartIn(chartContainer);
-
-    console.dir(this.props.data);
 
     return <div ref={(nodeElement) => {nodeElement.appendChild(chartContainer)}}/>
   }
@@ -37,7 +52,7 @@ class LiveLineChart extends React.Component {
       series: [
         {
           'name': 'Time',
-          'data': this.props.data
+          'data': this.state.data
         }
       ]
     });

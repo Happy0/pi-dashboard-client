@@ -19,7 +19,8 @@ class App extends Component {
 
     return (
       <div className="temperature">
-        <LiveLineChart xLabel={xLabel} yLabel={yLabel} topic={topicName} data={testData} title={titleText} />
+        <LiveLineChart xLabel={xLabel} yLabel={yLabel} topic={topicName} data={testData} title={titleText}
+          endpoint="/temperatures/recent"/>
       </div>
     )
   }
