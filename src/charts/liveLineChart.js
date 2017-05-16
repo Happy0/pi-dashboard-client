@@ -39,10 +39,10 @@ class LiveLineChart extends React.Component {
         events: {
           load: function() {
             var series = this.series[0];
-            var updateSeries = _self.updateChart.bind(null, series);
+            var updateSeries = _self.updateChart.bind(_self, this);
 
-            _self.getLatestData().then(data => updateSeries(data.map(_self.toChartPoint)))
-              .then(_self.keepChartUpdated(series))
+            _self.getLatestData().then(data => data.map(_self.toChartPoint).forEach(updateSeries))
+              .then(_self.keepChartUpdated(this))
           }
         }
       },
@@ -51,13 +51,19 @@ class LiveLineChart extends React.Component {
       },
       xAxis: {
         type: 'datetime',
-        text: this.props.xLabel
+        text: this.props.xLabel,
+        tickPixelInterval: 150
       },
       yAxis: {
         type: 'celcius',
         title: {
           text: this.props.yLabel
-        }
+        },
+        plotLines: [{
+        value: 0,
+        width: 1,
+        color: '#808080'
+      }],
       },
       series: [
         {
@@ -75,13 +81,17 @@ class LiveLineChart extends React.Component {
 
   toChartPoint(dataPoint) {
     return {
-      x: dataPoint[0] * 1000,
+      x: dataPoint[0],
       y: dataPoint[1]
     }
   }
 
-  updateChart(series, chartPoint) {
-    series.addPoint(chartPoint, true, true);
+  updateChart(chart, chartPoint) {
+    var series = chart.series[0];
+    var shift = series.length >= this.props.displayedPoints;
+
+    series.addPoint(chartPoint, false, shift);
+    chart.redraw();
   }
 
 }
