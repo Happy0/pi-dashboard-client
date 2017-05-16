@@ -41,7 +41,7 @@ class LiveLineChart extends React.Component {
             var series = this.series[0];
             var updateSeries = _self.updateChart.bind(null, series);
 
-            _self.getLatestData().then(data => data.forEach(updateSeries))
+            _self.getLatestData().then(data => updateSeries(data.map(_self.toChartPoint)))
               .then(_self.keepChartUpdated(series))
           }
         }
@@ -70,11 +70,18 @@ class LiveLineChart extends React.Component {
   }
 
   keepChartUpdated(series) {
-    PubSub.subscribe(this.props.topic, (msg, data) => this.updateChart(series, data));
+    PubSub.subscribe(this.props.topic, (msg, data) => this.updateChart(series, this.toChartPoint(data)));
   }
 
-  updateChart(series, dataPoint) {
-    series.addPoint(dataPoint, true, true);
+  toChartPoint(dataPoint) {
+    return {
+      x: dataPoint[0] * 1000,
+      y: dataPoint[1]
+    }
+  }
+
+  updateChart(series, chartPoint) {
+    series.addPoint(chartPoint, true, true);
   }
 
 }
