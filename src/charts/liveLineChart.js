@@ -88,7 +88,7 @@ class LiveLineChart extends React.Component {
 
   updateChart(chart, chartPoint) {
     var series = chart.series[0];
-    var shift = series.length >= this.props.displayedPoints;
+    var shift = series.data.length >= this.props.displayedPoints;
 
     series.addPoint(chartPoint, false, shift);
     chart.redraw();
