@@ -1,3 +1,4 @@
 {
-  "baseRestUri": "http://localhost:8080"
+  "baseRestUri": "http://localhost:8080",
+  "websocketUri" : "ws://localhost:9999"
 }

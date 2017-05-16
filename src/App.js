@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
 
+import ChartSocketListener from './websockets/chart_socket_listener';
 import LiveLineChart from './charts/liveLineChart';
+
+var config = require("../config.json");
 
 var defaultData = [
 ];
@@ -12,9 +15,14 @@ var yLabel = "Temperature";
 
 var topicName = "cpu_temperature";
 
-var displayedPoints = 50;
+var displayedPoints = 20;
 
 class App extends Component {
+
+  componentDidMount() {
+    var chartSocketListener = new ChartSocketListener(config.websocketUri);
+    chartSocketListener.start();
+  }
 
   render() {
 
