@@ -38,10 +38,10 @@ class LiveLineChart extends React.Component {
         animation: HighCharts.svg,
         events: {
           load: function() {
-            var series = this.series[0];
             var updateSeries = _self.updateChart.bind(_self, this);
 
-            _self.getLatestData().then(data => data.map(_self.toChartPoint).forEach(updateSeries))
+            _self.getLatestData().then(data => data.map(_self.toChartPoint)
+              .forEach(updateSeries))
               .then(_self.keepChartUpdated(this))
           }
         }
@@ -55,7 +55,6 @@ class LiveLineChart extends React.Component {
         tickPixelInterval: 150
       },
       yAxis: {
-        type: 'celcius',
         title: {
           text: this.props.yLabel
         },
@@ -80,10 +79,7 @@ class LiveLineChart extends React.Component {
   }
 
   toChartPoint(dataPoint) {
-    return {
-      x: dataPoint[0],
-      y: dataPoint[1]
-    }
+    return dataPoint;
   }
 
   updateChart(chart, chartPoint) {
