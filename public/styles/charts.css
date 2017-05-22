@@ -1,0 +1,8 @@
+.all_charts {
+  display: flex;
+  justify-content: space-around;
+}
+
+.perf_chart {
+  width: 50%;
+}

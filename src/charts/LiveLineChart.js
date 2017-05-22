@@ -52,8 +52,7 @@ class LiveLineChart extends React.Component {
       },
       xAxis: {
         type: 'datetime',
-        text: this.props.xLabel,
-        tickPixelInterval: 150
+        text: this.props.xLabel
       },
       yAxis: {
         title: {
@@ -70,7 +69,14 @@ class LiveLineChart extends React.Component {
           'name': 'Time',
           'data': this.data
         }
-      ]
+      ],
+      plotOptions: {
+      series: {
+          marker: {
+              enabled: true
+          }
+      }
+    }
     });
 
   }
