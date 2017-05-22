@@ -40,7 +40,8 @@ class LiveLineChart extends React.Component {
           load: function() {
             var updateSeries = _self.updateChart.bind(_self, this);
 
-            _self.getLatestData().then(data => data.map(_self.toChartPoint)
+            _self.getLatestData()
+              .then(data => data.map(_self.toChartPoint)
               .forEach(updateSeries))
               .then(_self.keepChartUpdated(this))
           }

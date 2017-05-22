@@ -6,17 +6,6 @@ import LiveLineChart from './charts/liveLineChart';
 
 var config = require("../config.json");
 
-var defaultData = [
-];
-
-var titleText = "CPU Temperature";
-var xLabel = "Time";
-var yLabel = "Temperature";
-
-var topicName = "cpu_temperature";
-
-var displayedPoints = 20;
-
 class App extends Component {
 
   componentDidMount() {
@@ -25,11 +14,31 @@ class App extends Component {
   }
 
   render() {
+    var numberOfPoints = 10;
 
     return (
-      <div className="temperature">
-        <LiveLineChart xLabel={xLabel} yLabel={yLabel} topic={topicName} data={defaultData} title={titleText} displayedPoints={displayedPoints}
-          endpoint={"/temperatures/recent?limit=" + displayedPoints} />
+      <div className="all_charts">
+        <div className="chart">
+          <LiveLineChart
+            xLabel="Time"
+            yLabel="CPU Temperature"
+            topic="cpu_temperature"
+            data={[]}
+            title="CPU Temperature"
+            displayedPoints={numberOfPoints}
+            endpoint={"/temperatures/recent?limit=" + numberOfPoints} />
+        </div>
+        <div className="chart">
+          <LiveLineChart
+            xLabel="Time"
+            yLabel="CPU Usage"
+            topic="cpu_usage"
+            data={[]}
+            title="CPU Usage"
+            displayedPoints={numberOfPoints}
+            endpoint={"/cpu/recent?limit=" + numberOfPoints} />
+        </div>
+
       </div>
     )
   }
