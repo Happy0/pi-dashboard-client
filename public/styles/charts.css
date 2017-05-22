@@ -1,12 +1,12 @@
 .all_charts {
   display: flex;
   justify-content: space-around;
-  margin: 5%;
+  margin: 2%;
 }
 
-.perf_chart {
-  width: 45%;
+.perf_chart_container {
   border-radius: 25px;
   padding: 20px;
   border: 1px solid black;
+  background: #e6e6e6;
 }
