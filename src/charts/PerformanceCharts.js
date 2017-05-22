@@ -20,16 +20,6 @@ class PerformanceCharts extends React.Component {
         <div className="perf_chart">
           <LiveLineChart
             xLabel="Time"
-            yLabel="CPU Temperature"
-            topic="cpu_temperature"
-            data={[]}
-            title="CPU Temperature"
-            displayedPoints={numberOfPoints}
-            endpoint={"/temperatures/recent?limit=" + numberOfPoints} />
-        </div>
-        <div className="perf_chart">
-          <LiveLineChart
-            xLabel="Time"
             yLabel="CPU Usage"
             topic="cpu_usage"
             data={[]}
@@ -37,7 +27,16 @@ class PerformanceCharts extends React.Component {
             displayedPoints={numberOfPoints}
             endpoint={"/cpu/recent?limit=" + numberOfPoints} />
         </div>
-
+        <div className="perf_chart">
+          <LiveLineChart
+            xLabel="Time"
+            yLabel="CPU Temperature"
+            topic="cpu_temperature"
+            data={[]}
+            title="CPU Temperature"
+            displayedPoints={numberOfPoints}
+            endpoint={"/temperatures/recent?limit=" + numberOfPoints} />
+        </div>
       </div>
     )
   }

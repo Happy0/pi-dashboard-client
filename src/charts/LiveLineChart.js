@@ -34,7 +34,7 @@ class LiveLineChart extends React.Component {
 
     this.chart = HighCharts.chart(domElement, {
       chart: {
-        type: 'spline',
+        type: 'line',
         animation: HighCharts.svg,
         events: {
           load: function() {

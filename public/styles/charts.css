@@ -1,8 +1,12 @@
 .all_charts {
   display: flex;
   justify-content: space-around;
+  margin: 5%;
 }
 
 .perf_chart {
-  width: 50%;
+  width: 45%;
+  border-radius: 25px;
+  padding: 20px;
+  border: 1px solid black;
 }
