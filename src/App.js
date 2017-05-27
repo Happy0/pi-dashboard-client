@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+
+import CommandList from './bash_commands/CommandList';
 import PerformanceCharts from './charts/PerformanceCharts';
 
 class App extends Component {
@@ -7,6 +9,7 @@ class App extends Component {
     return (
       <div>
         <PerformanceCharts/>
+        <CommandList/>
       </div>
     )
   }
