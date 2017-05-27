@@ -15,21 +15,27 @@ class CommandList extends React.Component {
     const baseRestUri = config.baseRestUri;
     const bashCommandsUri = baseRestUri + "/bash_commands";
 
-    fetch(bashCommandsUri).then(result => {
-      const resultJson = result.json();
-      this.state.commandsList = resultJson;
-    });
+    fetch(bashCommandsUri).then(result => result.json().then(resultJson => {
+      this.setState( { commandsList: resultJson } )
+    }));
+  }
+
+  renderCommand(command) {
+    return (
+       <div>
+        <p>{command.id}</p>
+        <p>{command.command}</p>
+      </div>
+    )
   }
 
   render() {
-    return <div>
-      {this.state.commandsList.map(command => {
-        <div>
-          <p>command.id</p>
-          <p>command.command</p>
-        </div>
-      })}
-    </div>
+    var commandList = this.state.commandsList.map(this.renderCommand);
+    return (
+      <div>
+        {commandList}
+      </div>
+    )
   }
 
 }
