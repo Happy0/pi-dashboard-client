@@ -25,7 +25,7 @@ class LiveLineChart extends React.Component {
     var chartContainer = document.createElement("div");
     this.createChartIn(chartContainer);
 
-    return <div ref={(nodeElement) => {nodeElement.appendChild(chartContainer)}}/>
+    return <div className="chart" ref={(nodeElement) => {nodeElement.appendChild(chartContainer)}}/>
   }
 
   createChartIn(domElement) {
@@ -43,7 +43,7 @@ class LiveLineChart extends React.Component {
             _self.getLatestData()
               .then(data => data.map(_self.toChartPoint)
               .forEach(updateSeries))
-              .then(_self.keepChartUpdated(this))
+              .then(_self.keepChartUpdated(this));
           }
         }
       },
@@ -95,6 +95,10 @@ class LiveLineChart extends React.Component {
 
     series.addPoint(chartPoint, false, shift);
     chart.redraw();
+
+    // Without this, there's a weird gap to the right of the chart for
+    // some reason
+    chart.reflow();
   }
 
 }
