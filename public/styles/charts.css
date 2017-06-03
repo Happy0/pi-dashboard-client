@@ -7,12 +7,12 @@
 .perf_chart_container {
   border-radius: 25px;
   padding: 1%;
-  border: 1px solid black;
-  background: #e6e6e6;
+  border: 1px solid #D3D3D3;
+  background: #F5F5F5;
   width: 45%;
   margin: auto;
 }
 
 .chart {
-  
+
 }

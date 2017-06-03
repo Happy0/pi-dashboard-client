@@ -22,6 +22,7 @@ class LiveLineChart extends React.Component {
   }
 
   render() {
+
     var chartContainer = document.createElement("div");
     this.createChartIn(chartContainer);
 
