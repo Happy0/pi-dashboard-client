@@ -22,12 +22,14 @@ class LiveLineChart extends React.Component {
   }
 
   render() {
-
-    var chartContainer = document.createElement("div");
-    this.createChartIn(chartContainer);
-
-    return <div className="chart" ref={(nodeElement) => {nodeElement.appendChild(chartContainer)}}/>
+    return <div ref="chart"/>
   }
+
+  componentDidMount() {
+    var chartContainer = this.refs.chart;
+    this.createChartIn(chartContainer);
+  }
+
 
   createChartIn(domElement) {
 
