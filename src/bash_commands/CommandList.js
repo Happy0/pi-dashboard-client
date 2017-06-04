@@ -21,11 +21,17 @@ class CommandList extends React.Component {
   }
 
   renderCommand(command) {
+    const invokeCommand = (command) => {
+      const baseRestUri = config.baseRestUri;
+      const postCommand = baseRestUri + "/bash_commands/" + command.id;
+
+      fetch(postCommand, {
+        method: 'POST'
+      })
+    }
+
     return (
-       <div>
-        <p>{command.id}</p>
-        <p>{command.command}</p>
-      </div>
+       <button className="btn" onClick={(e) => invokeCommand(command)} title={command.Description}>{command.name}</button>
     )
   }
 

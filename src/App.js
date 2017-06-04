@@ -17,7 +17,7 @@ class App extends Component {
           </ul>
           <div>
             <Route exact path="/" component={PerformanceCharts} />
-            <Route path="/commands" component={CommandList} />
+            <Route path="/commands" component={CommandList}/>
           </div>
         </div>
       </Router>

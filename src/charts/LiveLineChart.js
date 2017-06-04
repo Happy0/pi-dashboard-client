@@ -9,7 +9,6 @@ class LiveLineChart extends React.Component {
 
   constructor (props) {
     super(props);
-
     this.data = this.props.data;
   }
 
@@ -27,9 +26,18 @@ class LiveLineChart extends React.Component {
 
   componentDidMount() {
     var chartContainer = this.refs.chart;
-    this.createChartIn(chartContainer);
+    var chart = this.createChartIn(chartContainer);
   }
 
+  componentWillUnmount() {
+    if (this.liveUpdateHandler) {
+      PubSub.unsubscribe(this.liveUpdateHandler);
+    }
+
+    if (this.chart) {
+      this.chart.destroy();
+    }
+  }
 
   createChartIn(domElement) {
 
@@ -82,10 +90,11 @@ class LiveLineChart extends React.Component {
     }
     });
 
+    return this.chart;
   }
 
   keepChartUpdated(series) {
-    PubSub.subscribe(this.props.topic, (msg, data) => this.updateChart(series, this.toChartPoint(data)));
+    this.liveUpdateHandler = PubSub.subscribe(this.props.topic, (msg, data) => this.updateChart(series, this.toChartPoint(data)));
   }
 
   toChartPoint(dataPoint) {
