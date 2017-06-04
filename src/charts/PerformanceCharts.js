@@ -8,8 +8,12 @@ var config = require("../../config.json");
 class PerformanceCharts extends React.Component {
 
   componentDidMount() {
-    var chartSocketListener = new ChartSocketListener(config.websocketUri);
-    chartSocketListener.start();
+    this.chartSocketListener = new ChartSocketListener(config.websocketUri);
+    this.chartSocketListener.start();
+  }
+
+  componentWillUnmount() {
+    this.chartSocketListener.stop();
   }
 
   render() {

@@ -7,12 +7,16 @@ class ChartSocketListener {
   }
 
   start() {
-    var socket = new WebSocket(this.socketUri);
+    this.socket = new WebSocket(this.socketUri);
 
-    socket.onmessage = function (event) {
+    this.socket.onmessage = function (event) {
       var eventJson = JSON.parse(event.data);
       PubSub.publish(eventJson.msg, eventJson.data);
     }
+  }
+
+  stop() {
+    this.socket.close();
   }
 
 }
